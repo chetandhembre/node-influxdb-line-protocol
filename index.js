@@ -72,7 +72,7 @@ function isObject(obj) {
 
 function escape(str) {
   return str.split('').map(function (character) {
-    if (character === ' ') {
+    if (character === ' ' || character === ',') {
       character = '\\' + character;
     }
     return character;
