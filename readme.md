@@ -20,7 +20,7 @@ To use UDP protocol for writing data in influxdb using line protocol, we have to
 [udp]
   enabled = true
   bind-address = ":9999"
-  database = "visitors
+  database = "visitors"
 ```
 
 after changing UDP configuration to above configuration, influxdb will start listening on port 9999. Important point here is we have to specified `database` to which all write will go and we can not change it in run time. :(
@@ -94,6 +94,7 @@ influxDbLine.send('CPU', {
 ```
 
 ##Contribution
+
 This module is using es6 features. So es6 code is written in `index_es6.js` and it is converted to `index.js`. Just run following command to do it
 
 ```js
