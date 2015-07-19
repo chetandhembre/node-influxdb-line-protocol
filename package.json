@@ -1,6 +1,6 @@
 {
   "name": "influxdb-line-protocol",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "line protocol implementation for influxdb",
   "main": "index.js",
   "scripts": {
