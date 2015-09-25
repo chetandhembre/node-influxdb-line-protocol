@@ -34,7 +34,9 @@ influx_line_udp.prototype.send = function (mesurement, fields) {
   var escaped_fields_array = [];
   var unescaped_fields_keys = Object.keys(fields) || [];
   for (var i = 0; i < unescaped_fields_keys.length; i++) {
-    escaped_fields_array.push(escape(unescaped_fields_keys[i]) + '=' + cast(fields[unescaped_fields_keys[i]]));
+    if(unescaped_fields_keys[i]){
+      escaped_fields_array.push(escape(unescaped_fields_keys[i]) + '=' + cast(fields[unescaped_fields_keys[i]]));
+    }
   }
   var escaped_fields_str = escaped_fields_array.join(',');
 
@@ -46,7 +48,9 @@ influx_line_udp.prototype.send = function (mesurement, fields) {
 
   var esapedTagsArray = [];
   for (var tagKey in tags) {
-    esapedTagsArray.push(escape(tagKey) + '=' + escape(tags[tagKey]));
+    if(tagKey){
+      esapedTagsArray.push(escape(tagKey) + '=' + escape(tags[tagKey]));
+    }
   }
   escapeTags = esapedTagsArray.join(',');
 
@@ -111,10 +115,10 @@ function cast (value) {
 }
 
 function escape (value) {
-  return value.split('').map(function (character) {
+  return value ? value.split('').map(function (character) {
       if (character === ' ' || character === ',' || (character === '"')) {
         character = '\\' + character
       }
       return character
-    }).join('');
+    }).join('') : null;
 }
