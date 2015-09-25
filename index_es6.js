@@ -43,7 +43,7 @@ influx_line_udp.prototype.send = function (mesurement, fields, tags={}, timestam
 
   let esapedTagsArray = []
   for (let tagKey in tags) {
-    esapedTagsArray.push(escape(tagKey), escape(tags[tagKey]))
+    esapedTagsArray.push(escape(tagKey) + '=' + escape(tags[tagKey]))
   }
   escapeTags = esapedTagsArray.join(',')
 
