@@ -22,7 +22,7 @@ influx_line_udp.prototype.send = function (mesurement, fields, tags={}, timestam
     return self.emit('error', 'mesurement should be string')
   }
 
-  mesurement = escape(mesurement, true)
+  mesurement = escape(mesurement)
 
   if (!fields || !isObject(fields)) {
     return self.emit('error', 'fields should be an Object')
@@ -31,7 +31,7 @@ influx_line_udp.prototype.send = function (mesurement, fields, tags={}, timestam
   let escaped_fields_array = []
   let unescaped_fields_keys = Object.keys(fields) || []
   for (let i = 0; i < unescaped_fields_keys.length; i++) {
-    escaped_fields_array.push(escape(unescaped_fields_keys[i], true) + '=' + escape(fields[unescaped_fields_keys[i]]))
+    escaped_fields_array.push(escape(unescaped_fields_keys[i]) + '=' + cast(fields[unescaped_fields_keys[i]]))
   }
   let escaped_fields_str = escaped_fields_array.join(',')
 
@@ -43,7 +43,7 @@ influx_line_udp.prototype.send = function (mesurement, fields, tags={}, timestam
 
   let esapedTagsArray = []
   for (let tagKey in tags) {
-    esapedTagsArray.push(escape(tagKey, true) + '=' + escape(tags[tagKey], true))
+    esapedTagsArray.push(escape(tagKey) + '=' + escape(tags[tagKey]))
   }
   escapeTags = esapedTagsArray.join(',')
 
@@ -83,20 +83,9 @@ function isInt(n) {
    return n % 1 === 0;
 }
 
-function escape (value, skipQuote) {
+function cast (value) {
   if(isString(value)){
-    var svalue = value.split('').map(function (character) {
-      if (character === ' ' || character === ',' || (!skipQuote && character === '"')) {
-        character = '\\' + character
-      }
-      return character
-    }).join('');
-
-    if(skipQuote){
-      return svalue;
-    }
-
-    return '"' + svalue + '"';
+    return '"' + escape(value) + '"';
   }
 
   if(isBoolean(value)){
@@ -116,4 +105,13 @@ function escape (value, skipQuote) {
   }
 
   return value;
+}
+
+function escape (value) {
+  return value.split('').map(function (character) {
+      if (character === ' ' || character === ',' || (!skipQuote && character === '"')) {
+        character = '\\' + character
+      }
+      return character
+    }).join('');
 }
