@@ -73,9 +73,9 @@ function isBoolean(arg) {
   return typeof arg === 'boolean' || arg instanceof Boolean;
 }
 
-function isObject (obj) {
-  let type = typeof obj
-  return type === 'function' || type === 'object' && !!obj
+function isObject(obj) {
+  var type = typeof obj;
+  return type === 'function' || type === 'object' && !!obj;
 }
 
 function isNumber(arg) {
