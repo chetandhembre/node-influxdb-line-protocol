@@ -109,7 +109,7 @@ function cast (value) {
 
 function escape (value) {
   return value.split('').map(function (character) {
-      if (character === ' ' || character === ',' || (!skipQuote && character === '"')) {
+      if (character === ' ' || character === ',' || (character === '"')) {
         character = '\\' + character
       }
       return character
