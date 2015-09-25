@@ -50,7 +50,7 @@ influx_line_udp.prototype.send = function (mesurement, fields) {
   }
   escapeTags = esapedTagsArray.join(',');
 
-  var data = '' + mesurement + (escapeTags.length > 0 ? ',' + escapeTags : '') + ' ' + escaped_fields_str + (timestamp ? ' ' + timestamp : timestamp);
+  var data = '' + mesurement + (escapeTags.length > 0 ? ',' + escapeTags : '') + ' ' + escaped_fields_str + (timestamp ? ' ' + timestamp : '');
 
   if (!self.socket) {
     self.socket = dgram.createSocket('udp4');

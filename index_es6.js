@@ -47,7 +47,7 @@ influx_line_udp.prototype.send = function (mesurement, fields, tags={}, timestam
   }
   escapeTags = esapedTagsArray.join(',')
 
-  let data = `${mesurement}${escapeTags.length > 0 ? ',' + escapeTags : ''} ${escaped_fields_str}${timestamp ? ' ' + timestamp : timestamp}`
+  let data = `${mesurement}${escapeTags.length > 0 ? ',' + escapeTags : ''} ${escaped_fields_str}${timestamp ? ' ' + timestamp : ''}`
 
   if (!self.socket) {
     self.socket = dgram.createSocket('udp4')
