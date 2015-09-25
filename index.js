@@ -25,7 +25,7 @@ influx_line_udp.prototype.send = function (mesurement, fields) {
     return self.emit('error', 'mesurement should be string');
   }
 
-  mesurement = escape(mesurement);
+  mesurement = escape(mesurement, true);
 
   if (!fields || !isObject(fields)) {
     return self.emit('error', 'fields should be an Object');
@@ -86,14 +86,20 @@ function isInt(n) {
    return n % 1 === 0;
 }
 
-function escape (value) {
+function escape (value, skipQuote) {
   if(isString(value)){
-    return '"' + value.split('').map(function (character) {
-      if (character === ' ' || character === ',') {
+    var svalue = value.split('').map(function (character) {
+      if (character === ' ' || character === ',' || (!skipQuote && character === '"')) {
         character = '\\' + character
       }
       return character
-    }).join('') + '"';
+    }).join('');
+
+    if(skipQuote){
+      return svalue;
+    }
+
+    return '"' + skipQuote + '"';
   }
 
   if(isBoolean(value)){
