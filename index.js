@@ -34,7 +34,7 @@ influx_line_udp.prototype.send = function (mesurement, fields) {
   var escaped_fields_array = [];
   var unescaped_fields_keys = Object.keys(fields) || [];
   for (var i = 0; i < unescaped_fields_keys.length; i++) {
-    escaped_fields_array.push(escape(unescaped_fields_keys[i]) + '=' + fields[unescaped_fields_keys[i]]);
+    escaped_fields_array.push(escape(unescaped_fields_keys[i], true) + '=' + fields[unescaped_fields_keys[i]]);
   }
   var escaped_fields_str = escaped_fields_array.join(',');
 
@@ -46,7 +46,7 @@ influx_line_udp.prototype.send = function (mesurement, fields) {
 
   var esapedTagsArray = [];
   for (var tagKey in tags) {
-    esapedTagsArray.push(escape(tagKey) + '=' + escape(tags[tagKey]));
+    esapedTagsArray.push(escape(tagKey, true) + '=' + escape(tags[tagKey]));
   }
   escapeTags = esapedTagsArray.join(',');
 
