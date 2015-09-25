@@ -99,7 +99,7 @@ function escape (value, skipQuote) {
       return svalue;
     }
 
-    return '"' + skipQuote + '"';
+    return '"' + svalue + '"';
   }
 
   if(isBoolean(value)){
