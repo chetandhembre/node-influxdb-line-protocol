@@ -65,17 +65,52 @@ function _send(socket, data, offset, port, host) {
   socket.send(data, offset, data.length, port, host);
 }
 
-function isObject(obj) {
-  var type = typeof obj;
-  return type === 'function' || type === 'object' && !!obj;
+function isString(arg) {
+  return typeof arg === 'string' || arg instanceof String;
 }
 
-function escape(str) {
-  return str.split('').map(function (character) {
-    if (character === ' ' || character === ',') {
-      character = '\\' + character;
+function isBoolean(arg) {
+  return typeof arg === 'boolean' || arg instanceof Boolean;
+}
+
+function isObject (obj) {
+  let type = typeof obj
+  return type === 'function' || type === 'object' && !!obj
+}
+
+function isNumber(arg) {
+  return typeof arg === 'number' || arg instanceof Number;
+}
+
+function isInt(n) {
+   return n % 1 === 0;
+}
+
+function escape (value) {
+  if(isString(value)){
+    return '"' + value.split('').map(function (character) {
+      if (character === ' ' || character === ',') {
+        character = '\\' + character
+      }
+      return character
+    }).join('') + '"';
+  }
+
+  if(isBoolean(value)){
+    return value ? 'TRUE' : 'FALSE';
+  }
+
+  if(isNumber(value)){
+    if(isInt(value)){
+      return value + 'i';
     }
-    return character;
-  }).join('');
-}
 
+    return value;
+  }
+
+  if(isObject(value)){
+    return escape(value.toString());
+  }
+
+  return value;
+}
