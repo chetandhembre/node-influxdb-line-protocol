@@ -114,7 +114,7 @@ function cast (value) {
 function escape (value) {
   var val = value;
 
-  if(isObject(val)){
+  if(isObject(val) || isNumber(val)){
     val = val.toString();
   }
 
