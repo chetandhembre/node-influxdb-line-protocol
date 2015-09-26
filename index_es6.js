@@ -112,7 +112,13 @@ function cast (value) {
 }
 
 function escape (value) {
-  return  value && value.split ? value.split('').map(function (character) {
+  var val = value;
+
+  if(isObject(val)){
+    val = val.toString();
+  }
+
+  return  val ? val.split('').map(function (character) {
       if (character === ' ' || character === ',' || (character === '"')) {
         character = '\\' + character
       }
