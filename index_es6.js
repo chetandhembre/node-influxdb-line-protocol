@@ -118,6 +118,10 @@ function escape (value) {
     val = val.toString();
   }
 
+  if(isBoolean(value)){
+    return value ? 'TRUE' : 'FALSE';
+  }
+
   if(!isString(val)){
     return null;
   }
