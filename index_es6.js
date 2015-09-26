@@ -115,6 +115,10 @@ function escape (value) {
     val = val.toString();
   }
 
+  if(!isString(val)){
+    return null;
+  }
+
   return  val ? val.split('').map(function (character) {
       if (character === ' ' || character === ',' || (character === '"')) {
         character = '\\' + character
