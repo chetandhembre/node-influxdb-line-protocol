@@ -100,11 +100,8 @@ function cast (value) {
   }
 
   if(isNumber(value)){
-    if(isInt(value)){
-      return value + 'i';
-    }
-
-    return value;
+    // javascript can't tell the difference between 1.0 and 1, so cast all as float
+    return parseFloat(value);
   }
 
   if(isObject(value)){
