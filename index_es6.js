@@ -35,7 +35,11 @@ influx_line_udp.prototype.send = function (mesurement, fields, tags={}, timestam
     let value = fields[unescaped_fields_keys[i]];
 
     if(key && value !== undefined){
-      escaped_fields_array.push(escape(key) + '=' + cast(value))
+      var casted = cast(value);
+
+      if(casted != null){
+        escaped_fields_array.push(escape(key) + '=' + casted)
+      }
     }
   }
   let escaped_fields_str = escaped_fields_array.join(',')
