@@ -109,7 +109,7 @@ function cast (value) {
   }
 
   if(isObject(value)){
-    return escape(value.toString());
+    return '"' + escape(value.toString()) + '"';
   }
 
   return value;
