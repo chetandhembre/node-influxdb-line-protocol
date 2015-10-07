@@ -55,7 +55,7 @@ influx_line_udp.prototype.send = function (mesurement, fields) {
 
   var esapedTagsArray = [];
   for (var tagKey in tags) {
-    if(tagKey && tags[tagKey]){
+    if(tagKey && tags[tagKey] !== ''){
       esapedTagsArray.push(escape(tagKey) + '=' + escape(tags[tagKey]));
     }
   }
